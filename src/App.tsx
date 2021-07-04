@@ -1,25 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Row, Col, Space } from 'antd';
+import SessionForm from './SessionForm';
+import PlayerList from './PlayerList';
+import { Session } from "./types";
 
-function App() {
+const App = () => {
+  const [session, setSession] = React.useState<Session | undefined>(undefined);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Space
+      direction="vertical"
+      align="center"
+      style={{ width: '100vw', marginTop: 30 }}
+    >
+      <Space direction="vertical">
+        {!session ? (
+          <Row>
+            <Col span={24}>
+              <SessionForm onSubmit={setSession} />
+            </Col>
+          </Row>
+        ) : (
+          <Row>
+            <Col span={24}><PlayerList /></Col>
+          </Row>
+        )}
+      </Space>
+    </Space>
   );
 }
 
